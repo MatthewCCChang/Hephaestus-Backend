@@ -6,7 +6,7 @@ var path = require('path');
 const cors = require('cors');
 require('dotenv').config();
 
-var indexRouter = require('./routes/index');
+var indexRouter = require('./routes/device');
 var usersRouter = require('./routes/users');
 require('dotenv').config();
 const pool = require('./server/db');
