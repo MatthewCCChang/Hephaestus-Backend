@@ -6,7 +6,7 @@ var path = require('path');
 const cors = require('cors');
 require('dotenv').config();
 
-var indexRouter = require('./routes/device');
+var deviceRouter = require('./routes/device');
 var usersRouter = require('./routes/users');
 require('dotenv').config();
 const pool = require('./server/db');
@@ -43,7 +43,7 @@ app.get('/test',async (req, res) => {
 // app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+app.use('/device', deviceRouter);
 app.use('/users', usersRouter);
 
 

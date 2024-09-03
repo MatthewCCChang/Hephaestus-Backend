@@ -28,11 +28,10 @@ deviceRouter.get('/all_device', async(req, res) => {
 })
 
 //get specific device
-deviceRouter.get('/device/:id', async(req, res) => {
+deviceRouter.get('/:id', async(req, res) => {
   try{
-    const deviceId = req.params.id;
-    console.log(deviceId);
-    const data = await pool.query(`SELECT * FROM device WHERE id=$1;`,[deviceId]);
+    const {id} = req.params;
+    const data = await pool.query(`SELECT * FROM device WHERE id=$1;`,[id]);
     res.status(200).json(data.rows);
   }catch(e){
     res.status(500).send(e.message);
@@ -40,11 +39,54 @@ deviceRouter.get('/device/:id', async(req, res) => {
 })
 
 //update last_refill date
+deviceRouter.put('/last_refill/:id', async(req,res) => {
+  try{
+    const {id} = req.params;
+    const { date } = req.body;
+    const data = [date, id];
+    const putQuery = await pool.query(`UPDATE device SET last_refill=$1 WHERE id=$2;`,data);
+    res.status(200).json(putQuery);
+  }catch(e) {
+    res.status(500).send(e.message);
+  }
+})
 
 //update refills count
+deviceRouter.put('/refill/:id', async(req, res) => {
+  try{
+    const {id} = req.params;
+    const query = await pool.query(`UPDATE device SET refills=refills+1 WHERE id=$1`,[id]);
+    res.status(200).json(query);
+  } catch(e) {
+    res.status(500).send(e.message);
+  }
+})
 
 //update capacity
+deviceRouter.put('/capacity/:id', async(req, res) => {
+  try{
+    const id = req.params.id;
+    const {capacity }= req.body;
+    const data = [capacity, id];
+    const query = await pool.query(`UPDATE device SET capacity=$1 WHERE id=$2;`,data);
+    res.status(200).json(query);
+  } catch(e) {
+    res.status(500).send(e.message);
+  }
+})
 
 //update longitude and latitude
+deviceRouter.put('/location/:id', async(req, res) => {
+  try{
+    const {id} = req.params;
+    const {long, lat} = req.body;
+    const data = [long, lat, id]
+    const query = await pool.query(`UPDATE device SET longitude=$1, latitude=$2 WHERE id=$3;`, data);
+  res.status(200).json(query);
+  } catch(e) {
+    res.status(500).send(e.message);
+  }
+  
+})
 
 module.exports = deviceRouter;
