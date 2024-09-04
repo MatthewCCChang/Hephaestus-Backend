@@ -8,6 +8,7 @@ require('dotenv').config();
 
 var deviceRouter = require('./routes/device');
 var usersRouter = require('./routes/users');
+var sensorRouter = require('./routes/sensor');
 require('dotenv').config();
 const pool = require('./server/db');
 var app = express();
@@ -45,6 +46,7 @@ app.get('/test',async (req, res) => {
 
 app.use('/device', deviceRouter);
 app.use('/users', usersRouter);
+app.use('/sensors', sensorRouter);
 
 
 
