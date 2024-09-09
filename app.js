@@ -11,6 +11,7 @@ var usersRouter = require('./routes/users');
 var sensorRouter = require('./routes/sensor');
 var connectionRouter = require('./routes/connection');
 var userRouter = require('./routes/users');
+var ownsRouter = require('./routes/ownership');
 
 require('dotenv').config();
 const pool = require('./server/db');
@@ -52,6 +53,7 @@ app.use('/users', usersRouter);
 app.use('/sensors', sensorRouter);
 app.use('/connections', connectionRouter);
 app.use('/user', userRouter);
+app.use('/owns', ownsRouter);
 
 // catch 404 and forward to error handler
 // app.use(function(req, res, next) {
