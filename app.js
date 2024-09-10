@@ -10,7 +10,6 @@ var deviceRouter = require('./routes/device');
 var usersRouter = require('./routes/users');
 var sensorRouter = require('./routes/sensor');
 var connectionRouter = require('./routes/connection');
-var userRouter = require('./routes/users');
 var ownsRouter = require('./routes/ownership');
 
 require('dotenv').config();
@@ -52,7 +51,6 @@ app.use('/device', deviceRouter);
 app.use('/users', usersRouter);
 app.use('/sensors', sensorRouter);
 app.use('/connections', connectionRouter);
-app.use('/user', userRouter);
 app.use('/owns', ownsRouter);
 
 // catch 404 and forward to error handler

@@ -30,7 +30,7 @@ userRouter.get('/', async(req, res) => {
 //get user
 userRouter.get('/:firebase_id', async(req, res) => {
   try{
-    const {firebase_id} = req.params; //change to array when passed in to query
+    const {firebase_id} = req.params; 
     const data = await pool.query('SELECT * FROM owner WHERE firebase_id=$1;', [firebase_id]);
     res.status(200).json(data.rows);
   }catch(e) {
@@ -62,6 +62,7 @@ userRouter.put('/:firebase_id', async(req, res) => {
     res.status(500).send(e.message);
   }
 })
+
 //delete user
 userRouter.delete('/:firebase_id', async(req, res) => {
   try{
