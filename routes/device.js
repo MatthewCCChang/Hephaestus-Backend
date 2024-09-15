@@ -22,6 +22,7 @@ deviceRouter.get('/all_device', async(req, res) => {
   try{
     const data = await pool.query(`SELECT * FROM device;`);
     res.json(data.rows);
+    // console.log(data.rows);
   }catch(e){
     res.status(500).send(e.message);
   }
