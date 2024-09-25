@@ -1,11 +1,12 @@
 var express = require('express');
 var userRouter = express.Router();
 const pool = require('../server/db');
+const verify = require('../server/firebase');
 
 userRouter.use(express.json())
 
 //create user
-userRouter.post('/', async(req, res) => {
+userRouter.post('/', verify, async(req, res) => {
   try{
     const {first, last, firebase_id, email} = req.body;
     const data = [first, last, firebase_id, email];
@@ -28,7 +29,7 @@ userRouter.get('/', async(req, res) => {
 })
 
 //get user
-userRouter.get('/:firebase_id', async(req, res) => {
+userRouter.get('/:firebase_id', verify, async(req, res) => {
   try{
     const {firebase_id} = req.params; 
     const data = await pool.query('SELECT * FROM owner WHERE firebase_id=$1;', [firebase_id]);
@@ -39,7 +40,7 @@ userRouter.get('/:firebase_id', async(req, res) => {
 });
 
 //update name
-userRouter.put('/:firebase_id', async(req, res) => {
+userRouter.put('/:firebase_id', verify, async(req, res) => {
   try{
     const {firebase_id} = req.params;
     const {first, last} = req.body;
@@ -52,8 +53,8 @@ userRouter.put('/:firebase_id', async(req, res) => {
   
 });
 
-//update device count
-userRouter.put('/:firebase_id', async(req, res) => {
+//update device count 
+userRouter.put('/:firebase_id', verify, async(req, res) => {
   try{
     const {firebase_id} = req.params;
     const query = await pool.query(`UPDATE owner SET devices_owned=devices_owned+1 WHERE firebase_id=$1`, [firebase_id]);
@@ -64,7 +65,7 @@ userRouter.put('/:firebase_id', async(req, res) => {
 })
 
 //delete user
-userRouter.delete('/:firebase_id', async(req, res) => {
+userRouter.delete('/:firebase_id', verify, async(req, res) => {
   try{
     const {firebase_id} = req.params;
     const query = await pool.query('DELETE FROM owner WHERE firebase_id=$1;', [firebase_id]);
