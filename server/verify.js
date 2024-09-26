@@ -17,3 +17,5 @@ const verifyToken = async(req, res, next) => {
         res.status(401).send({message: 'Unauthorized: Invalid token provided'});
     }
 };
+
+module.exports = verifyToken;
