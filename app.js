@@ -19,12 +19,10 @@ const PORT = process.env.PORT || 3001;
 
 //change for deployment
 app.use(
-  cors(
-    {
-      origin: `${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}`,
-      credentials: true
-    }
-  )
+  cors({
+    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+    credentials: true
+  })
 );
 
 
